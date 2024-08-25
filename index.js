@@ -33,7 +33,7 @@ async function main() {
         await store.delete(inputKey);
         core.info(`Setting value for ${inputKey} (overwrite: ${overwrite})`);
 
-        body = { value: inputValue }
+        body = inputValue
         result = await store.set(inputKey, body, expiration_ttl);
       } else {
         core.info(`Getting value for ${inputKey}`);
@@ -41,14 +41,14 @@ async function main() {
     } else {
       core.info(`Setting value for ${inputKey}`);
 
-      body = { value: inputValue }
+      body = inputValue
       result = await store.set(inputKey, body, expiration_ttl);
     }
 
-    core.info(`value is ${body.value}, result is ${result}`);
+    core.info(`value is ${body}, result is ${result}`);
 
     core.setOutput('result', result);
-    core.setOutput('value', body.value);
+    core.setOutput('value', body);
   } catch (error) {
     core.setFailed(error.message);
     core.setFailed(error.stack);
